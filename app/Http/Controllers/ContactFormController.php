@@ -50,7 +50,6 @@ class ContactFormController extends Controller
         $contact->contact = $request->input('contact');
         $contact->save();
         return redirect('contact/index');
-        
     }
 
     /**
@@ -112,7 +111,10 @@ class ContactFormController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contact = ContactForm::find($id);
+        $new_contact = $request->only(['your_name', 'title', 'email', 'url', 'gender', 'age', 'contact']);
+        $contact->fill($new_contact)->update();
+        return redirect('contact/index');
     }
 
     /**
